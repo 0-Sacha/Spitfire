@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dist|x64">
+      <Configuration>Dist</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4B64E0BF-3731-3BCB-604A-29734C767059}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Spitfire</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin\Windows-vs2022\Debug-x64\Spitfire\</OutDir>
+    <IntDir>..\bin-int\Windows-vs2022\Debug-x64\Spitfire\</IntDir>
+    <TargetName>Spitfire</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\Windows-vs2022\Release-x64\Spitfire\</OutDir>
+    <IntDir>..\bin-int\Windows-vs2022\Release-x64\Spitfire\</IntDir>
+    <TargetName>Spitfire</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\Windows-vs2022\Dist-x64\Spitfire\</OutDir>
+    <IntDir>..\bin-int\Windows-vs2022\Dist-x64\Spitfire\</IntDir>
+    <TargetName>Spitfire</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Spitfirepch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>ARCHITECTURE_X64;TARGET_DEBUG;COMPILER_VS;PLATFORM_WINDOWS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;Dependencies;Dependencies\GLEW\include;Dependencies\GLFW\x64\include;Dependencies\ImGui;Dependencies\glm;Dependencies\stb_image;..\EngineCore\src;..\EngineCore\src\EngineCore;..\EngineCore\src\EngineCore\Core;..\EngineCore\src\EngineCore\LIB;..\EngineCore\src\EngineCore\TNX;..\EngineCore\src\EngineCore\Test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Dependencies\GLFW\x64\lib-vc2019.lib;Dependencies\GLEW\lib\Release\x64.lib;glew32s.lib;glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\Windows-vs2022\Debug-x64\Spitfire\Spitfire.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Spitfirepch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>ARCHITECTURE_X64;TARGET_RELEASE;COMPILER_VS;PLATFORM_WINDOWS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;Dependencies;Dependencies\GLEW\include;Dependencies\GLFW\x64\include;Dependencies\ImGui;Dependencies\glm;Dependencies\stb_image;..\EngineCore\src;..\EngineCore\src\EngineCore;..\EngineCore\src\EngineCore\Core;..\EngineCore\src\EngineCore\LIB;..\EngineCore\src\EngineCore\TNX;..\EngineCore\src\EngineCore\Test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Dependencies\GLFW\x64\lib-vc2019.lib;Dependencies\GLEW\lib\Release\x64.lib;glew32s.lib;glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\Windows-vs2022\Release-x64\Spitfire\Spitfire.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>Spitfirepch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>ARCHITECTURE_X64;TARGET_DIST;COMPILER_VS;PLATFORM_WINDOWS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;Dependencies;Dependencies\GLEW\include;Dependencies\GLFW\x64\include;Dependencies\ImGui;Dependencies\glm;Dependencies\stb_image;..\EngineCore\src;..\EngineCore\src\EngineCore;..\EngineCore\src\EngineCore\Core;..\EngineCore\src\EngineCore\LIB;..\EngineCore\src\EngineCore\TNX;..\EngineCore\src\EngineCore\Test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Dependencies\GLFW\x64\lib-vc2019.lib;Dependencies\GLEW\lib\Release\x64.lib;glew32s.lib;glfw3.lib;opengl32.lib;User32.lib;Gdi32.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\Windows-vs2022\Dist-x64\Spitfire\Spitfire.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Asset\Shader\BaseMonochrome.h" />
+    <ClInclude Include="src\Asset\Shader\BaseRG.h" />
+    <ClInclude Include="src\Asset\Shader\BaseRGB.h" />
+    <ClInclude Include="src\Asset\Shader\BaseRGBA.h" />
+    <ClInclude Include="src\Spitfire.h" />
+    <ClInclude Include="src\Spitfire\Core\Core.h" />
+    <ClInclude Include="src\Spitfire\Games\PixelGame\PixelGame.h" />
+    <ClInclude Include="src\Spitfire\OpenGL\Asset\VertexArray.h" />
+    <ClInclude Include="src\Spitfire\OpenGL\Asset\VertexBuffer.h" />
+    <ClInclude Include="src\Spitfire\OpenGL\Asset\VertexBufferLayout.h" />
+    <ClInclude Include="src\Spitfire\OpenGL\Camera\OrthographicCamera.h" />
+    <ClInclude Include="src\Spitfire\OpenGL\Camera\OrthographicCameraController.h" />
+    <ClInclude Include="src\Spitfire\OpenGL\Core\Core.h" />
+    <ClInclude Include="src\Spitfire\OpenGL\Shader\Shader.h" />
+    <ClInclude Include="src\Spitfire\OpenGL\Texture\Texture.h" />
+    <ClInclude Include="src\Spitfire\Renderer\Renderer.h" />
+    <ClInclude Include="src\Spitfirepch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Spitfire\Core\Core.cpp" />
+    <ClCompile Include="src\Spitfire\Games\PixelGame\PixelGame.cpp" />
+    <ClCompile Include="src\Spitfire\OpenGL\Asset\VertexArray.cpp" />
+    <ClCompile Include="src\Spitfire\OpenGL\Asset\VertexBuffer.cpp" />
+    <ClCompile Include="src\Spitfire\OpenGL\Asset\VertexBufferLayout.cpp" />
+    <ClCompile Include="src\Spitfire\OpenGL\Camera\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Spitfire\OpenGL\Camera\OrthographicCameraController.cpp" />
+    <ClCompile Include="src\Spitfire\OpenGL\Shader\Shader.cpp" />
+    <ClCompile Include="src\Spitfire\OpenGL\Texture\Texture.cpp" />
+    <ClCompile Include="src\Spitfire\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Spitfirepch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EngineCore\EngineCore.vcxproj">
+      <Project>{04E20003-F099-4250-59A1-1BAC4578DD40}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

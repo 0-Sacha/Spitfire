@@ -1,7 +1,8 @@
 
+#include "Spitfirepch.h"
 
 #include "Texture.h"
-#include "PixelEngine/PixelEngineCore/Renderer.h"
+#include "Spitfire/Renderer/Renderer.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image/stb_image.h"

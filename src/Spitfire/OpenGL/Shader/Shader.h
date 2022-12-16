@@ -1,7 +1,7 @@
 #pragma once
 
-#include "PixelEngine/Core/Core.h"
-#include "PixelEngine/OpenGlCore/Core/Core.h"
+#include "Spitfire/Core/Core.h"
+#include "Spitfire/OpenGL/Core/Core.h"
 
 #include <unordered_map>
 #include <istream>

@@ -1,16 +1,20 @@
 
-ProjectPublicDefines["PixelEngine"] = {
+Solution.ProjectsInfo.Defines["Spitfire"] = {
 	"GLEW_STATIC"
 }
 
-ProjectPublicIncludes["PixelEngine"] = {
-	"%{wks.location}/PixelEngine/src/",
-	"%{wks.location}/PixelEngine/src/vendor/",
-	"%{wks.location}/PixelEngine/Dependencies/GLEW/include/",
-	"%{wks.location}/PixelEngine/Dependencies/GLFW/%{cfg.platform}/include/"
+Solution.ProjectsInfo.Includes["Spitfire"] = {
+	"%%{Solution.Projects.Spitfire}/src/",
+
+	"%{Solution.Projects.Spitfire}/Dependencies",
+	"%{Solution.Projects.Spitfire}/Dependencies/GLEW/include/",
+	"%{Solution.Projects.Spitfire}/Dependencies/GLFW/%{cfg.platform}/include/",
+	"%{Solution.Projects.Spitfire}/Dependencies/ImGui",
+	"%{Solution.Projects.Spitfire}/Dependencies/glm",
+	"%{Solution.Projects.Spitfire}/Dependencies/stb_image"
 }
 
-ProjectPublicLinks["PixelEngine"] = {
+Solution.ProjectsInfo.Links["Spitfire"] = {
 	"Dependencies/GLFW/%{cfg.platform}/lib-vc2019",
 	"Dependencies/GLEW/lib/Release/%{cfg.platform}",
 	"glew32s.lib",
@@ -21,15 +25,17 @@ ProjectPublicLinks["PixelEngine"] = {
 	"Shell32.lib"
 }
 
-project "PixelEngine"
+project "Spitfire"
 	kind "SharedLib"
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "on"
 
+	pchheader "Spitfirepch.h"
+	pchsource "src/Spitfirepch.cpp"
 
-	targetdir 	(project_targetdir .. "/%{prj.name}")
-	objdir 		(project_objdir .. "/%{prj.name}")
+	targetdir 	(Solution.Path.ProjectTargetDirectory)
+    objdir 		(Solution.Path.ProjectObjectDirectory)
 
 	files {
 		"src/**.h",
@@ -38,10 +44,5 @@ project "PixelEngine"
 		"src/**.cpp",
 	}
 
-	IncludeProject("PixelEngine")
-	IncludeAndLinkProject("EngineCore")
-
-	filter "system:windows"
-        postbuildcommands {
-			("{COPY} " .. project_targetdir .. "/%{prj.name} ../%{PixelEngine_AppTarget}")
-		}
+	Solution.IncludeProject("Spitfire")
+	Solution.IncludeAndLinkProject("EngineCore")

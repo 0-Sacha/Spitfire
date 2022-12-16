@@ -1,10 +1,11 @@
 
+#include "Spitfirepch.h"
+
 #include "Shader.h"
 
-#include "PixelEngine/Core/Core.h"
-#include "PixelEngine/OpenGlCore/Core/Core.h"
-
-#include "PixelEngine/PixelEngineCore/Renderer.h"
+#include "Spitfire/Core/Core.h"
+#include "Spitfire/OpenGL/Core/Core.h"
+#include "Spitfire/SpitfireCore/Renderer.h"
 
 #include <fstream>
 #include <sstream>
