@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Blackbird/Core/Layer/Layer.h"
+#include "Spitfire/Core/Layer/Layer.h"
 
-#include "Blackbird/Event/ApplicationEvent.h"
-#include "Blackbird/Event/KeyboardEvent.h"
-#include "Blackbird/Event/MouseEvent.h"
+#include "Spitfire/Core/Event/ApplicationEvent.h"
+#include "Spitfire/Core/Event/KeyboardEvent.h"
+#include "Spitfire/Core/Event/MouseEvent.h"
 
-namespace Blackbird {
+namespace Spitfire {
 
 	class ImGuiLayer : public Layer
 	{

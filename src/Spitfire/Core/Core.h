@@ -2,6 +2,10 @@
 
 #include "Spitfirepch.h"
 
+#ifdef SPITFIRE_USE_OPENGL
+	#include "Platform/OpenGL/OpenGLDeclaration.h"
+#endif
+
 namespace Spitfire
 {
 

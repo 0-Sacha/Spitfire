@@ -1,18 +1,14 @@
 
-#include "Blackbirdpch.h"
+#include "Spitfirepch.h"
 
+#include "Spitfire/Core/Application/Application.h"
 #include "ImGuiLayer.h"
 
-#include "imgui.h"
-#include "examples/imgui_impl_glfw.h"
-#include "examples/imgui_impl_opengl3.h"
+#ifdef SPITFIRE_USE_OPENGL
+	#include "Platform/OpenGL/OpenGL.h"
+#endif
 
-#include "Blackbird/Core/Application/Application.h"
-
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
-
-namespace Blackbird {
+namespace Spitfire {
 
 	ImGuiLayer::ImGuiLayer()
 		: Layer("ImGuiLayer") {}
@@ -44,10 +40,9 @@ namespace Blackbird {
 		}
 
 		Application& app = Application::GetInstance();
-		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
 		// Setup Platform/Renderer bindings
-		ImGui_ImplGlfw_InitForOpenGL(window, true);
+		ImGui_ImplGlfw_InitForOpenGL(app.GetWindow(), true);
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
 
@@ -69,7 +64,7 @@ namespace Blackbird {
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::GetInstance();
-		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
+		io.DisplaySize = ImVec2((float)app.GetApplicationSpecification().Width, (float)app.GetApplicationSpecification().Height);
 
 		// Rendering
 		ImGui::Render();
@@ -87,7 +82,7 @@ namespace Blackbird {
 	void ImGuiLayer::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<MouseButtonPressedEvent>(BlACKBIRD_BIND_EVENT(ImGuiLayer::OnMouseButtonPressed));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(SPITFIRE_BIND_EVENT(ImGuiLayer::OnMouseButtonPressed));
 	}
 
 	void ImGuiLayer::OnImGuiRender()

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Spitfire/Core/Core.h"
-#include "Spitfire/Core/TimeStep.h"
-#include "Spitfire/Event/Event.h"
+#include "Spitfire/Core/Utils/TimeStep.h"
+#include "Spitfire/Core/Event/Event.h"
 
 namespace Spitfire {
 

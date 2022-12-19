@@ -4,7 +4,7 @@
 #include "Spitfire/Core/Core.h"
 #include "VertexBufferLayout.h"
 
-namespace Spitfire {
+namespace Spitfire::OpenGL::Detail {
 
 	/////---------- VertexBuffer ----------/////
 

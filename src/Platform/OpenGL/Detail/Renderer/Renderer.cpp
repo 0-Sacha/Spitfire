@@ -2,18 +2,16 @@
 #include "Spitfirepch.h"
 
 #include "Renderer.h"
-#include "Spitfire/Core/Core.h"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw_gl3.h"
+#include "Spitfire/Core/Application/Application.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-namespace Spitfire
+#ifdef SPITFIRE_USE_OPENGL
+	#include "Platform/OpenGL/OpenGL.h"
+#endif
+
+namespace Spitfire::OpenGL::Detail
 {
 	Renderer::Renderer(int width, int height) {
 
@@ -150,11 +148,13 @@ namespace Spitfire
 
 		if (value) {
 			ImGui::CreateContext();
-			ImGui_ImplGlfwGL3_Init(GetInstance().m_Window, true);
+			ImGui_ImplGlfw_InitForOpenGL(GetInstance().m_Window, true);
+			ImGui_ImplOpenGL3_Init("#version 410");
 			ImGui::StyleColorsDark();
 		}
 		else {
-			ImGui_ImplGlfwGL3_Shutdown();
+			ImGui_ImplOpenGL3_Shutdown();
+			ImGui_ImplGlfw_Shutdown();
 			ImGui::DestroyContext();
 		}
 	}
@@ -180,16 +180,31 @@ namespace Spitfire
 		Renderer::ResetClearColor();
 		Renderer::Clear();
 
-		if (GetInstance().m_UsingImGui) {
-			ImGui_ImplGlfwGL3_NewFrame();
+		if (GetInstance().m_UsingImGui)
+		{
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplGlfw_NewFrame();
 		}
 	}
 
 	void Renderer::EndFrame()
 	{
 		if (GetInstance().m_UsingImGui) {
+			ImGuiIO& io = ImGui::GetIO();
+			Application& app = Application::GetInstance();
+			io.DisplaySize = ImVec2((float)app.GetApplicationSpecification().Width, (float)app.GetApplicationSpecification().Height);
+
+			// Rendering
 			ImGui::Render();
-			ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+			if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+			{
+				GLFWwindow* backup_current_context = glfwGetCurrentContext();
+				ImGui::UpdatePlatformWindows();
+				ImGui::RenderPlatformWindowsDefault();
+				glfwMakeContextCurrent(backup_current_context);
+			}
 		}
 
 		glfwSwapBuffers(GetInstance().m_Window);

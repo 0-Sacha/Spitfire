@@ -2,8 +2,7 @@
 #include "Spitfirepch.h"
 
 #include "OrthographicCameraController.h"
-
-#include "OpenGlCore/Core/Input/Input.h"
+#include "Spitfire/Core/Input/Input.h"
 
 namespace Spitfire::Utils {
 
@@ -17,25 +16,25 @@ namespace Spitfire::Utils {
 		#define OCC_ONUPDATE_SIN sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts
 		#define OCC_ONUPDATE_COS cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts
 
-		if(Input::IsKeyPressed(KeyCode::KeyA)) {
+		if(Input::IsKeyPressed(KeyboardKey::A)) {
 			m_CameraPosition.x -= OCC_ONUPDATE_COS;
 			m_CameraPosition.y -= OCC_ONUPDATE_SIN;
-		} else if(Input::IsKeyPressed(KeyCode::KeyD)) {
+		} else if(Input::IsKeyPressed(KeyboardKey::D)) {
 			m_CameraPosition.x += OCC_ONUPDATE_COS;
 			m_CameraPosition.y += OCC_ONUPDATE_SIN;
-		} else if (Input::IsKeyPressed(KeyCode::KeyW)) {
+		} else if (Input::IsKeyPressed(KeyboardKey::W)) {
 			m_CameraPosition.x -= OCC_ONUPDATE_SIN;
 			m_CameraPosition.y += OCC_ONUPDATE_COS;
-		} else if (Input::IsKeyPressed(KeyCode::KeyS)) {
+		} else if (Input::IsKeyPressed(KeyboardKey::S)) {
 			m_CameraPosition.x += OCC_ONUPDATE_SIN;
 			m_CameraPosition.y -= OCC_ONUPDATE_COS;
 		}
 
 		if(m_HasRotation)
 		{
-			if (Input::IsKeyPressed(KeyCode::KeyQ))
+			if (Input::IsKeyPressed(KeyboardKey::Q))
 				m_CameraRotation += m_CameraRotationSpeed * ts;
-			if (Input::IsKeyPressed(KeyCode::KeyE))
+			if (Input::IsKeyPressed(KeyboardKey::E))
 				m_CameraRotation -= m_CameraRotationSpeed * ts;
 
 			if (m_CameraRotation > 180.0f)

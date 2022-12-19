@@ -1,20 +1,18 @@
 #pragma once
 
 #include "Spitfire/Core/Core.h"
-#include "Spitfire/OpenGL/Core/Core.h"
 
-#include "Spitfire/OpenGL/Asset/VertexBuffer.h"
-#include "Spitfire/OpenGL/Asset/VertexArray.h"
-#include "Spitfire/OpenGL/Asset/VertexBufferLayout.h"
-#include "Spitfire/OpenGL/Shader/Shader.h"
-#include "Spitfire/OpenGL/Texture/Texture.h"
+#include "Platform/OpenGL/Detail/Core/Core.h"
+#include "Platform/OpenGL/Detail/Asset/VertexBuffer.h"
+#include "Platform/OpenGL/Detail/Asset/VertexArray.h"
+#include "Platform/OpenGL/Detail/Asset/VertexBufferLayout.h"
+#include "Platform/OpenGL/Detail/Shader/Shader.h"
+#include "Platform/OpenGL/Detail/Texture/Texture.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-struct GLFWwindow;
-
-namespace Spitfire
+namespace Spitfire::OpenGL::Detail
 {
 	class Renderer {
 	public:

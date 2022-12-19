@@ -2,11 +2,9 @@
 #include "Spitfirepch.h"
 #include "VertexArray.h"
 
-#include "Spitfire/Renderer/Renderer.h"
-
 #include "GL/glew.h"
 
-namespace Spitfire {
+namespace Spitfire::OpenGL::Detail {
 
 	uint32_t ShaderData::GetAPIType(ShaderData::Type type) {
 		switch (type)

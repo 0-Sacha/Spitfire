@@ -10,7 +10,4 @@
 #include "Spitfire/Core/Event/KeyboardEvent.h"
 #include "Spitfire/Core/Event/MouseEvent.h"
 
-#include "Spitfire/Renderer/Renderer.h"
-
-
 #include "Spitfire/Core/Utils/EntryPoint.h"

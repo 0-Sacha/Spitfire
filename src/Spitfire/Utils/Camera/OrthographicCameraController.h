@@ -2,10 +2,10 @@
 
 #include "OrthographicCamera.h"
 
-#include "Spitfire/Core/TimeStep.h"
+#include "Spitfire/Core/Utils/TimeStep.h"
 
-#include "Spitfire/Event/ApplicationEvent.h"
-#include "Spitfire/Event/MouseEvent.h"
+#include "Spitfire/Core/Event/ApplicationEvent.h"
+#include "Spitfire/Core/Event/MouseEvent.h"
 
 namespace Spitfire::Utils {
 

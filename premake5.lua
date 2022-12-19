@@ -1,11 +1,18 @@
 
+Solution.Projects["ImGui"] 		= "Dependencies/imgui"
+
+group "Dependencies"
+	include (Solution.Projects["ImGui"])
+group ""
+
 Solution.ProjectsInfo.Defines["Spitfire"] = {
-	"GLEW_STATIC"
+	"GLEW_STATIC",
+	"SPITFIRE_USE_OPENGL"
 }
 
 Solution.ProjectsInfo.Includes["Spitfire"] = {
-	"%%{Solution.Projects.Spitfire}/",
-	"%%{Solution.Projects.Spitfire}/src/",
+	"%{Solution.Projects.Spitfire}/",
+	"%{Solution.Projects.Spitfire}/src/",
 
 	"%{Solution.Projects.Spitfire}/Dependencies",
 	"%{Solution.Projects.Spitfire}/Dependencies/GLEW/include/",
@@ -15,19 +22,8 @@ Solution.ProjectsInfo.Includes["Spitfire"] = {
 	"%{Solution.Projects.Spitfire}/Dependencies/stb_image"
 }
 
-Solution.ProjectsInfo.Links["Spitfire"] = {
-	"Dependencies/GLFW/%{cfg.platform}/lib-vc2019",
-	"Dependencies/GLEW/lib/Release/%{cfg.platform}",
-	"glew32s.lib",
-	"glfw3.lib",
-	"opengl32.lib",
-	"User32.lib",
-	"Gdi32.lib",
-	"Shell32.lib"
-}
-
 project "Spitfire"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
 	cppdialect "C++20"
 	staticruntime "on"
@@ -47,3 +43,14 @@ project "Spitfire"
 
 	Solution.IncludeProject("Spitfire")
 	Solution.IncludeAndLinkProject("EngineCore")
+
+	links {
+		"Dependencies/GLFW/%{cfg.platform}/lib-vc2019/glfw3_mt",
+		"Dependencies/GLEW/lib/Release/%{cfg.platform}/glew32s",
+		"ImGui",
+
+		"opengl32.lib",
+		"User32.lib",
+		"Gdi32.lib",
+		"Shell32.lib"
+	}

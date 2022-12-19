@@ -62,7 +62,7 @@ namespace Spitfire {
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override {
-			return EngineCore::FMT::FormatInString("KeyTypedEvent: {}", m_KeyCode);
+			return EngineCore::FMT::FormatString("KeyTypedEvent: {}", m_KeyCode);
 		}
 
 		EVENT_CLASS_TYPE(KeyTyped)

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Application/Application.h"
+#include "Spitfire/Core/Application/Application.h"
 
-#ifdef BlACKBIRD_PLATFORM_WINDOWS
+#ifdef SPITFIRE_PLATFORM_WINDOWS
 
 extern Spitfire::Application* Spitfire::CreateApplication();
 

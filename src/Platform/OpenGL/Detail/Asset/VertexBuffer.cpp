@@ -2,11 +2,11 @@
 
 #include "Spitfirepch.h"
 #include "VertexBuffer.h"
-#include "Spitfire/Renderer/Renderer.h"
+#include "Platform/OpenGL/Detail/Renderer/Renderer.h"
 
 #include "GL/glew.h"
 
-namespace Spitfire {
+namespace Spitfire::OpenGL::Detail {
 
 	/////---------- VertexBuffer ----------/////
 

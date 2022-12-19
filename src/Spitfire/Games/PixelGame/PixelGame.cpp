@@ -2,6 +2,7 @@
 #include "Spitfirepch.h"
 #include "PixelGame.h"
 
+/*
 #include "Asset/Shader/BaseMonochrome.h"
 #include "Asset/Shader/BaseRG.h"
 #include "Asset/Shader/BaseRGB.h"
@@ -175,3 +176,4 @@ namespace Spitfire::Games
 		}
 	}
 }
+*/

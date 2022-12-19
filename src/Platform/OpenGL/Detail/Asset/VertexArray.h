@@ -3,7 +3,7 @@
 #include "Spitfire/Core/Core.h"
 #include "VertexBuffer.h"
 
-namespace Spitfire {
+namespace Spitfire::OpenGL::Detail {
 
 	class VertexArray
 	{
