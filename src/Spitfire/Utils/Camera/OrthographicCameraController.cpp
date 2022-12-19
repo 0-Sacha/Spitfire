@@ -7,8 +7,6 @@
 
 namespace Spitfire::Utils {
 
-
-
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool hasRotation)
 		: m_AspectRatio(aspectRatio), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_HasRotation(hasRotation)
 	{
@@ -19,25 +17,25 @@ namespace Spitfire::Utils {
 		#define OCC_ONUPDATE_SIN sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts
 		#define OCC_ONUPDATE_COS cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts
 
-		if(Input::IsKeyPressed(KeyboardKey::KeyA)) {
+		if(Input::IsKeyPressed(KeyCode::KeyA)) {
 			m_CameraPosition.x -= OCC_ONUPDATE_COS;
 			m_CameraPosition.y -= OCC_ONUPDATE_SIN;
-		} else if(Input::IsKeyPressed(KeyboardKey::KeyD)) {
+		} else if(Input::IsKeyPressed(KeyCode::KeyD)) {
 			m_CameraPosition.x += OCC_ONUPDATE_COS;
 			m_CameraPosition.y += OCC_ONUPDATE_SIN;
-		} else if (Input::IsKeyPressed(KeyboardKey::KeyW)) {
+		} else if (Input::IsKeyPressed(KeyCode::KeyW)) {
 			m_CameraPosition.x -= OCC_ONUPDATE_SIN;
 			m_CameraPosition.y += OCC_ONUPDATE_COS;
-		} else if (Input::IsKeyPressed(KeyboardKey::KeyS)) {
+		} else if (Input::IsKeyPressed(KeyCode::KeyS)) {
 			m_CameraPosition.x += OCC_ONUPDATE_SIN;
 			m_CameraPosition.y -= OCC_ONUPDATE_COS;
 		}
 
 		if(m_HasRotation)
 		{
-			if (Input::IsKeyPressed(KeyboardKey::KeyQ))
+			if (Input::IsKeyPressed(KeyCode::KeyQ))
 				m_CameraRotation += m_CameraRotationSpeed * ts;
-			if (Input::IsKeyPressed(KeyboardKey::KeyE))
+			if (Input::IsKeyPressed(KeyCode::KeyE))
 				m_CameraRotation -= m_CameraRotationSpeed * ts;
 
 			if (m_CameraRotation > 180.0f)

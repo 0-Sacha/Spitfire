@@ -17,7 +17,7 @@
 
 // Architecture Define
 #ifdef ARCHITECTURE_X86
-	#error Blackbird doesn't support x86
+	#error Spitfire doesn't support x86
 #endif
 
 #ifdef ARCHITECTURE_X64
@@ -31,7 +31,7 @@
 #endif
 
 #ifdef PLATFORM_LINUX
-	#error Blackbird doesn't support Linux
+	#error Spitfire doesn't support Linux
 #endif
 
 

@@ -4,6 +4,7 @@ Solution.ProjectsInfo.Defines["Spitfire"] = {
 }
 
 Solution.ProjectsInfo.Includes["Spitfire"] = {
+	"%%{Solution.Projects.Spitfire}/",
 	"%%{Solution.Projects.Spitfire}/src/",
 
 	"%{Solution.Projects.Spitfire}/Dependencies",

@@ -46,5 +46,4 @@ namespace Spitfire {
 		RendererID m_RendererID;
 		uint32_t m_Count;
 	};
-
 }

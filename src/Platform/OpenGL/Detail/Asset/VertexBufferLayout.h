@@ -78,5 +78,4 @@ namespace Spitfire {
 		std::vector<BufferElements> m_Elements;
 		uint32_t m_Stride;
 	};
-
 }

@@ -16,7 +16,7 @@ struct GLFWwindow;
 
 namespace Spitfire
 {
-	class PE_API Renderer {
+	class Renderer {
 	public:
 		static Renderer& GetInstance(int width = 720, int height = 480);
 		static void Begin(int width = 720, int height = 480);

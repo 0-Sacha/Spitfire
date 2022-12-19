@@ -5,7 +5,7 @@
 namespace Spitfire::Games
 {
 	/* Buffer => colums of rows  (x => height; y => width)*/
-	class PE_API PixelGame {
+	class PixelGame {
 	public:
 		PixelGame(const std::string& name, int width, int height, uint8_t pixelSize, int bpp, const std::string& shaderPath = "");
 		PixelGame(std::string&& name, int width, int height, uint8_t pixelSize, int bpp, const std::string& shaderPath = "");

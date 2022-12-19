@@ -77,8 +77,3 @@ namespace Spitfire {
 		m_IndexBuffer = indexBuffer;
 	}
 }
-
-
-
-
-

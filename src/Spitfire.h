@@ -1,10 +1,16 @@
 #pragma once
 
-#include "Spitfire/SpitfireCore.h"
-#include "Spitfire/SpitfireCore/Renderer.h"
+#include "Spitfire/Core/Core.h"
 
-#include "Spitfire/SpitfireCore/PixelGame/PixelGame.h"
+#include "Spitfire/Core/Application/Application.h"
+#include "Spitfire/Core/Layer/Layer.h"
+#include "Spitfire/Core/Utils/TimeStep.h"
+#include "Spitfire/Core/Event/Event.h"
+#include "Spitfire/Core/Event/ApplicationEvent.h"
+#include "Spitfire/Core/Event/KeyboardEvent.h"
+#include "Spitfire/Core/Event/MouseEvent.h"
 
-#include "Spitfire/Tests/Test.h"
-#include "Spitfire/Tests/TestClearColor.h"
-#include "Spitfire/Tests/TestTexture.h"
+#include "Spitfire/Renderer/Renderer.h"
+
+
+#include "Spitfire/Core/Utils/EntryPoint.h"
