@@ -4,5 +4,5 @@
 #include <GLFW/glfw3.h>
 
 #include "ImGui/imgui.h"
-#include "Dependencies/ImGui/examples/imgui_impl_glfw.h"
-#include "Dependencies/ImGui/examples/imgui_impl_opengl3.h"
+#include "Dependencies/ImGui/backends/imgui_impl_glfw.h"
+#include "Dependencies/ImGui/backends/imgui_impl_opengl3.h"
