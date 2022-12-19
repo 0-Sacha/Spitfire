@@ -49,6 +49,7 @@ namespace Spitfire
 		EngineCore::LoggerManager::BasicLogger& GetLogger() { return m_Logger; }
 		static EngineCore::LoggerManager::BasicLogger& Logger() { return GetInstance().GetLogger(); }
 
+
 	private:
 		bool OnWindowClose(WindowCloseEvent& event);
 

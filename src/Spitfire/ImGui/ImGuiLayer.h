@@ -23,8 +23,14 @@ namespace Spitfire {
 	public:
 		void BeginFrame();
 		void EndFrame();
+		void BeginFrameDockspace();
+		void EndFrameDockspace();
+
+		void SetMenubarCallback(const std::function<void()>& menubarCallback) { m_MenubarCallback = menubarCallback; }
 
 	private:
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& event);
+
+		std::function<void()> m_MenubarCallback;
 	};
 }
