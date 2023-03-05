@@ -1,13 +1,13 @@
-
-#include "Spitfirepch.h"
-
 #include "Application.h"
 
 #include "Spitfire/Core/Input/Input.h"
 
-#ifdef SPITFIRE_USE_OPENGL
-	#include "Platform/OpenGL/OpenGL.h"
-#endif
+#include <GLFW/glfw3.h>
+
+namespace Spitfire
+{
+	void InitGraphicsContext();
+}
 
 namespace Spitfire {
 
@@ -28,6 +28,11 @@ namespace Spitfire {
 		specs.Width = width;
 		specs.Height = height;
 		Create(specs);
+	}
+
+	Application::~Application()
+	{
+		glfwTerminate();
 	}
 
 	static void GLFWErrorCallback(int error, const char* description)
@@ -138,7 +143,6 @@ namespace Spitfire {
 		}
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-		glewInit();
 
 		m_Window = glfwCreateWindow(specs.Width, specs.Height, specs.Name.c_str(), NULL, NULL);
 		glfwMakeContextCurrent(m_Window);
@@ -160,7 +164,7 @@ namespace Spitfire {
 		glfwSetScrollCallback(m_Window, GLFWScrollCallback);
 		glfwSetCursorPosCallback(m_Window, GLFWCursorPosCallback);
 
-		m_ImGuiLayer = new ImGuiLayer();
+		m_ImGuiLayer = std::make_shared<ImGuiLayer>();
 		PushOverlay(m_ImGuiLayer);
 	}
 
@@ -172,12 +176,14 @@ namespace Spitfire {
 			TimeStep timeStep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timeStep);
+			m_LayerStack.ForEach([timeStep](Ref<Layer>& layer) {
+					layer->OnUpdate(timeStep);
+				});
 
 			m_ImGuiLayer->BeginFrame();
-			for (Layer* layer : m_LayerStack)
+			m_LayerStack.ForEach([](Ref<Layer>& layer) {
 				layer->OnImGuiRender();
+				});
 			m_ImGuiLayer->EndFrame();
 
 			glfwPollEvents();
@@ -185,12 +191,12 @@ namespace Spitfire {
 		}
 	}
 
-	void Application::PushLayer(Layer* layer)
+	void Application::PushLayer(Ref<Layer> layer)
 	{
 		m_LayerStack.PushLayer(layer);
 	}
 
-	void Application::PushOverlay(Layer* overlay)
+	void Application::PushOverlay(Ref<Layer> overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);
 	}
@@ -202,8 +208,10 @@ namespace Spitfire {
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<WindowCloseEvent>(SPITFIRE_BIND_APPEVENT(OnWindowClose));
 
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin() && !event.Handled; )
-			(*--it)->OnEvent(event);
+		m_LayerStack.ForEachReverseStopable([&event](Ref<Layer>& layer) {
+				layer->OnEvent(event);
+				return event.Handled;
+			});
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& event)

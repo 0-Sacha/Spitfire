@@ -17,7 +17,9 @@ namespace Spitfire {
 		inline uint32_t GetHeight() const { return m_Height; }
 
 		std::string ToString() const override {
-			return EngineCore::FMT::FormatString("WindowResizeEvent: {}, {}", m_Width, m_Height);
+			std::string str;
+			EngineCore::FMT::FormatInString(str, "WindowResizeEvent: {}, {}", m_Width, m_Height);
+			return str;
 		}
 
 		EVENT_CLASS_TYPE(WindowResize)

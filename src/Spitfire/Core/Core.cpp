@@ -1,5 +1,4 @@
 
-#include "Spitfirepch.h"
 #include "Core.h"
 
 EngineCore::LoggerManager::BasicLogger& Spitfire::Core::Logger()

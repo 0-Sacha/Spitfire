@@ -2,7 +2,8 @@
 
 // GLFW Base code
 
-namespace Spitfire {
+namespace Spitfire
+{
 
 	enum class KeyboardKey : int {
 		Space = 32,

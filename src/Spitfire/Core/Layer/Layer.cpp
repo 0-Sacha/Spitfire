@@ -1,5 +1,4 @@
 
-#include "Spitfirepch.h"
 #include "Layer.h"
 
 namespace Spitfire {

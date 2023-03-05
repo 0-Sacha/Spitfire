@@ -7,10 +7,11 @@
 
 #include "Spitfire/Core/Utils/TimeStep.h"
 
-#include "Spitfire/ImGui/ImGuiLayer.h"
-
+#include "Spitfire/Core/ImGui/ImGuiLayer.h"
 
 #define SPITFIRE_BIND_APPEVENT(func) std::bind(&Application::func, this, std::placeholders::_1)
+
+struct GLFWwindow;
 
 namespace Spitfire
 {
@@ -27,7 +28,7 @@ namespace Spitfire
 	public:
 		Application(const ApplicationSpecification& specs = ApplicationSpecification{});
 		Application(const std::string& name, uint32_t width = 1280, uint32_t height = 720);
-		virtual ~Application() = default;
+		virtual ~Application();
 
 	private:
 		void Create(const ApplicationSpecification& specs);
@@ -37,8 +38,8 @@ namespace Spitfire
 
 		void OnEvent(Event& event);
 
-		void PushLayer(Layer* layer);
-		void PushOverlay(Layer* overlay);
+		void PushLayer(Ref<Layer> layer);
+		void PushOverlay(Ref<Layer> overlay);
 
 		GLFWwindow* GetWindow() { return m_Window; }
 		static Application& GetInstance() { return *s_Instance; };
@@ -57,7 +58,7 @@ namespace Spitfire
 		GLFWwindow* m_Window;
 		ApplicationSpecification m_ApplicationSpecification;
 
-		ImGuiLayer* m_ImGuiLayer;
+		Ref<ImGuiLayer> m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 

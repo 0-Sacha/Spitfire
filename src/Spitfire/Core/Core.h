@@ -1,16 +1,11 @@
 #pragma once
 
-#include "Spitfirepch.h"
+#include "EngineCore/LoggerManager/LoggerManager.h"
 
-#ifdef SPITFIRE_USE_OPENGL
-	#include "Platform/OpenGL/OpenGLDeclaration.h"
-#endif
+#include <utility>
 
 namespace Spitfire
 {
-
-	using RendererID = unsigned int;
-
 	template<typename T>
 	using Scope = std::unique_ptr<T>;
 

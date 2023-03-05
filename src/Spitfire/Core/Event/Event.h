@@ -2,7 +2,8 @@
 
 #include "Spitfire/Core/Core.h"
 
-#define SPITFIRE_BIND_EVENT(fn) std::bind(&fn, this, std::placeholders::_1)
+#define SPITFIRE_BIND_EVENT(eventFunction) [this](auto& event) { return this->eventFunction(event); }
+
 #define SPITFIRE_SET_BIT(i) (1 << i)
 
 #ifdef SPITFIRE_ENABLE_EVENT_TRACE
@@ -32,11 +33,11 @@ namespace Spitfire {
 		EventCategory_MouseButton	= SPITFIRE_SET_BIT(4)
 	};
 
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\
-								virtual EventType GetEventType() const override { return GetStaticType(); }\
-								virtual const char* GetName() const override { return #type; }
+#define EVENT_CLASS_TYPE(type)	static EventType GetStaticType() { return EventType::type; }\
+								EventType GetEventType() const override { return GetStaticType(); }\
+								const char* GetName() const override { return #type; }
 
-#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
+#define EVENT_CLASS_CATEGORY(category) int GetCategoryFlags() const override { return category; }
 
 	class Event
 	{
@@ -60,9 +61,8 @@ namespace Spitfire {
 		EventDispatcher(Event& event)
 			: m_Event(event) {}
 
-		// F will be deduced by the compiler
-		template<typename T, typename F>
-		inline bool Dispatch(const F& func)
+		template<typename T>
+		inline bool Dispatch(const std::function<bool(T& event)>& func)
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
@@ -71,6 +71,7 @@ namespace Spitfire {
 			}
 			return false;
 		}
+
 	private:
 		Event& m_Event;
 	};
@@ -82,12 +83,13 @@ namespace Spitfire {
 
 }
 
-namespace EngineCore::FMT {
+namespace EngineCore::FMT
+{
 	template<typename FormatContext>
-	struct FormatType<Spitfire::Event, FormatContext>
+	struct FormatterType<Spitfire::Event, FormatContext>
 	{
-		inline static void Write(const Spitfire::Event& t, FormatContext& context) {
-			FormatType<std::string>::Write(t.ToString(), context);
+		inline static void Format(const Spitfire::Event& t, FormatContext& context) {
+			FormatterType<std::string>::Format(t.ToString(), context);
 		}
 	};
 }

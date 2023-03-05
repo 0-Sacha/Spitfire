@@ -3,15 +3,21 @@
 #include "Event.h"
 #include "Spitfire/Core/Input/KeyboardKey.h"
 
+
 // KeyPressed, KeyReleased, KeyTyped,
 
-namespace Spitfire {
+namespace Spitfire
+{
 
-	class KeyEvent : public Event
+	class KeyboardEvent : public Event
 	{
 	public:
 		EVENT_CLASS_CATEGORY(EventCategory_Keyboard | EventCategory_Input)
+	};
 
+	class KeyEvent : public KeyboardEvent
+	{
+	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
 		inline KeyboardKey GetKeyboardKey() const { return (KeyboardKey)m_KeyCode; }
 
@@ -34,7 +40,9 @@ namespace Spitfire {
 		inline int GetRepeatCount() const { return m_RepeatCount; }
 
 		std::string ToString() const override {
-			return EngineCore::FMT::FormatString("KeyPressedEvent: {} ({} repeats)", m_KeyCode, m_RepeatCount);
+			std::string str;
+			EngineCore::FMT::FormatInString(str, "KeyPressedEvent: {} ({} repeats)", m_KeyCode, m_RepeatCount);
+			return str;
 		}
 
 		EVENT_CLASS_TYPE(KeyPressed)
@@ -49,7 +57,9 @@ namespace Spitfire {
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override {
-			return EngineCore::FMT::FormatString("KeyReleasedEvent: {}", m_KeyCode);
+			std::string str;
+			EngineCore::FMT::FormatInString(str, "KeyReleasedEvent: {}", m_KeyCode);
+			return str;
 		}
 
 		EVENT_CLASS_TYPE(KeyReleased)
@@ -62,7 +72,9 @@ namespace Spitfire {
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override {
-			return EngineCore::FMT::FormatString("KeyTypedEvent: {}", m_KeyCode);
+			std::string str;
+			EngineCore::FMT::FormatInString(str, "KeyTypedEvent: {}", m_KeyCode);
+			return str;
 		}
 
 		EVENT_CLASS_TYPE(KeyTyped)

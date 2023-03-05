@@ -1,51 +1,37 @@
-
-#include "Spitfirepch.h"
 #include "LayerStack.h"
 
-namespace Spitfire {
+namespace Spitfire
+{
 
-	LayerStack::LayerStack()
+	void LayerStack::PushLayer(Ref<Layer>& layer)
 	{
-
-	}
-
-	LayerStack::~LayerStack()
-	{
-		for (Layer* layer : m_Layers)
-			delete layer;
-	}
-
-	void LayerStack::PushLayer(Layer* layer)
-	{
-		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIdx, layer);
-		m_LayerInsertIdx++;
+		m_Layers.emplace_back(layer);
 		layer->OnAttach();
 	}
 
-	void LayerStack::PushOverlay(Layer* overlay)
+	void LayerStack::PushOverlay(Ref<Layer>& overlay)
 	{
-		m_Layers.emplace_back(overlay);
+		m_Overlay.push_back(overlay);
 		overlay->OnAttach();
 	}
 
-	void LayerStack::PopLayer(Layer* layer)
+	void LayerStack::PopLayer(Ref<Layer>& layer)
 	{
-		auto it = std::find(m_Layers.begin(), m_Layers.begin() + m_LayerInsertIdx, layer);
-		if (it != m_Layers.begin() + m_LayerInsertIdx)
+		auto it = std::find(m_Layers.begin(), m_Layers.begin(), layer);
+		if (it != m_Layers.end())
 		{
-			layer->OnDetach();
+			(*it)->OnDetach();
 			m_Layers.erase(it);
-			m_LayerInsertIdx--;
 		}
 	}
 
-	void LayerStack::PopOverlay(Layer* overlay)
+	void LayerStack::PopOverlay(Ref<Layer>& overlay)
 	{
-		auto it = std::find(m_Layers.begin() + m_LayerInsertIdx, m_Layers.end(), overlay);
-		if (it != m_Layers.end())
+		auto it = std::find(m_Overlay.begin(), m_Overlay.end(), overlay);
+		if (it != m_Overlay.end())
 		{
-			overlay->OnDetach();
-			m_Layers.erase(it);
+			(*it)->OnDetach();
+			m_Overlay.erase(it);
 		}
 	}
 

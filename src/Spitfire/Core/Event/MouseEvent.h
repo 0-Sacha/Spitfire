@@ -3,11 +3,18 @@
 #include "Event.h"
 #include "Spitfire/Core/Input/MouseBt.h"
 
+
 // MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 
-namespace Spitfire {
+namespace Spitfire
+{
+	class MouseEvent : public Event
+	{
+	public:
+		EVENT_CLASS_CATEGORY(EventCategory_Input | EventCategory_Mouse)
+	};
 
-	class MouseMouvedEvent : public Event
+	class MouseMouvedEvent : public MouseEvent
 	{
 	public:
 		MouseMouvedEvent(float x, float y)
@@ -23,13 +30,13 @@ namespace Spitfire {
 		}
 
 		EVENT_CLASS_TYPE(MouseMoved)
-		EVENT_CLASS_CATEGORY(EventCategory_Input | EventCategory_Mouse)
+
 	private:
 		float m_X;
 		float m_Y;
 	};
 
-	class MouseScrolledEvent : public Event
+	class MouseScrolledEvent : public MouseEvent
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
@@ -45,19 +52,18 @@ namespace Spitfire {
 		}
 
 		EVENT_CLASS_TYPE(MouseScrolled)
-		EVENT_CLASS_CATEGORY(EventCategory_Input | EventCategory_Mouse)
+
 	private:
 		float m_XOffset;
 		float m_YOffset;
 	};
 
-	class MouseButtonEvent : public Event
+	class MouseButtonEvent : public MouseEvent
 	{
 	public:
 		inline int GetBtCode() const{ return m_BtCode; }
 		inline MouseBt GetMouseBt() const { return (MouseBt)m_BtCode; }
 
-		EVENT_CLASS_CATEGORY(EventCategory_Input | EventCategory_Mouse)
 	protected:
 		MouseButtonEvent(int btCode)
 			: m_BtCode(btCode) { }
@@ -98,4 +104,5 @@ namespace Spitfire {
 
 		EVENT_CLASS_TYPE(MouseButtonReleased)
 	};
+
 }

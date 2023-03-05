@@ -9,5 +9,3 @@
 #include "Spitfire/Core/Event/ApplicationEvent.h"
 #include "Spitfire/Core/Event/KeyboardEvent.h"
 #include "Spitfire/Core/Event/MouseEvent.h"
-
-#include "Spitfire/Core/Utils/EntryPoint.h"

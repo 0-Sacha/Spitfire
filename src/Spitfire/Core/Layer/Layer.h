@@ -4,7 +4,8 @@
 #include "Spitfire/Core/Utils/TimeStep.h"
 #include "Spitfire/Core/Event/Event.h"
 
-namespace Spitfire {
+namespace Spitfire
+{
 
 	class Layer
 	{
@@ -21,9 +22,9 @@ namespace Spitfire {
 		virtual void OnEvent(Event& event) {}
 
 		inline const std::string& GetName() const { return m_DebugName; }
+
 	protected:
 		std::string m_DebugName;
 	};
 
 }
-

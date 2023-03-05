@@ -2,7 +2,8 @@
 
 // GLFW base code
 
-namespace Spitfire {
+namespace Spitfire
+{
 
 	enum class MouseBt : int {
 		Bt1 = 0,
