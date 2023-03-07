@@ -41,7 +41,7 @@ namespace Spitfire
 
 		std::string ToString() const override {
 			std::string str;
-			EngineCore::FMT::FormatInString(str, "KeyPressedEvent: {} ({} repeats)", m_KeyCode, m_RepeatCount);
+			ProjectCore::FMT::FormatInString(str, "KeyPressedEvent: {} ({} repeats)", m_KeyCode, m_RepeatCount);
 			return str;
 		}
 
@@ -58,7 +58,7 @@ namespace Spitfire
 
 		std::string ToString() const override {
 			std::string str;
-			EngineCore::FMT::FormatInString(str, "KeyReleasedEvent: {}", m_KeyCode);
+			ProjectCore::FMT::FormatInString(str, "KeyReleasedEvent: {}", m_KeyCode);
 			return str;
 		}
 
@@ -73,7 +73,7 @@ namespace Spitfire
 
 		std::string ToString() const override {
 			std::string str;
-			EngineCore::FMT::FormatInString(str, "KeyTypedEvent: {}", m_KeyCode);
+			ProjectCore::FMT::FormatInString(str, "KeyTypedEvent: {}", m_KeyCode);
 			return str;
 		}
 

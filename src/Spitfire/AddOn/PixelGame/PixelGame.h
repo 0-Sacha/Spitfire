@@ -38,7 +38,7 @@ namespace Spitfire::Games
 		inline int GetWidth() { return m_Width; };
 		inline int GetHeight() { return m_Height; };
 		inline int GetBPP() { return m_BPP; };
-		inline EngineCore::LoggerManager::BasicLogger& Logger() { return m_Logger; };
+		inline ProjectCore::LoggerManager::BasicLogger& Logger() { return m_Logger; };
 
 	private:
 		void GetShader(const std::string& shaderPath);
@@ -62,7 +62,7 @@ namespace Spitfire::Games
 		bool m_PrintFPS;
 		uint8_t m_CurrentIdBuffer;
 		uint8_t* m_Buffers[2];
-		EngineCore::LoggerManager::BasicLogger m_Logger;
+		ProjectCore::LoggerManager::BasicLogger m_Logger;
 
 	private:
 		VertexArray* m_VertexArray;

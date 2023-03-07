@@ -1,8 +1,8 @@
 
 #include "Core.h"
 
-EngineCore::LoggerManager::BasicLogger& Spitfire::Core::Logger()
+ProjectCore::LoggerManager::BasicLogger& Spitfire::Core::Logger()
 {
-	static EngineCore::LoggerManager::BasicLogger instance("Spitfire");
+	static ProjectCore::LoggerManager::BasicLogger instance("Spitfire");
 	return instance;
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EngineCore/LoggerManager/LoggerManager.h"
+#include "ProjectCore/LoggerManager/LoggerManager.h"
 
 #include <utility>
 
@@ -15,7 +15,7 @@ namespace Spitfire
 	class Core
 	{
 	public:
-		static EngineCore::LoggerManager::BasicLogger& Logger();
+		static ProjectCore::LoggerManager::BasicLogger& Logger();
 	};
 }
 

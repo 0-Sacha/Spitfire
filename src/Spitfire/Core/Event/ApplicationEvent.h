@@ -18,7 +18,7 @@ namespace Spitfire {
 
 		std::string ToString() const override {
 			std::string str;
-			EngineCore::FMT::FormatInString(str, "WindowResizeEvent: {}, {}", m_Width, m_Height);
+			ProjectCore::FMT::FormatInString(str, "WindowResizeEvent: {}, {}", m_Width, m_Height);
 			return str;
 		}
 

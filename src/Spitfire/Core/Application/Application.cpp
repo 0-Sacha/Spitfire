@@ -14,14 +14,14 @@ namespace Spitfire {
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application(const ApplicationSpecification& specs)
-		: m_Logger(specs.Name, EngineCore::LoggerManager::LogSeverity::Trace)
+		: m_Logger(specs.Name, ProjectCore::LoggerManager::LogSeverity::Trace)
 	{
 		Create(specs);
 	}
 
 
 	Application::Application(const std::string& name, uint32_t width, uint32_t height)
-		: m_Logger(name, EngineCore::LoggerManager::LogSeverity::Trace)
+		: m_Logger(name, ProjectCore::LoggerManager::LogSeverity::Trace)
 	{
 		ApplicationSpecification specs;
 		specs.Name = name;

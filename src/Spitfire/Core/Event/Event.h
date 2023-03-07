@@ -83,7 +83,7 @@ namespace Spitfire {
 
 }
 
-namespace EngineCore::FMT
+namespace ProjectCore::FMT
 {
 	template<typename FormatContext>
 	struct FormatterType<Spitfire::Event, FormatContext>

@@ -25,7 +25,7 @@ namespace Spitfire
 
 		std::string ToString() const override {
 			std::string str;
-			EngineCore::FMT::FormatInString(str, "MouseMoved: {}, {}", m_X, m_Y);
+			ProjectCore::FMT::FormatInString(str, "MouseMoved: {}, {}", m_X, m_Y);
 			return str;
 		}
 
@@ -47,7 +47,7 @@ namespace Spitfire
 
 		std::string ToString() const override {
 			std::string str;
-			EngineCore::FMT::FormatInString(str, "MouseScrolled: {}, {}", m_XOffset, m_YOffset);
+			ProjectCore::FMT::FormatInString(str, "MouseScrolled: {}, {}", m_XOffset, m_YOffset);
 			return str;
 		}
 
@@ -83,7 +83,7 @@ namespace Spitfire
 
 		std::string ToString() const override {
 			std::string str;
-			EngineCore::FMT::FormatInString(str, "MouseButtonPressed: {}", m_BtCode);
+			ProjectCore::FMT::FormatInString(str, "MouseButtonPressed: {}", m_BtCode);
 			return str;
 		}
 
@@ -98,7 +98,7 @@ namespace Spitfire
 
 		std::string ToString() const override {
 			std::string str;
-			EngineCore::FMT::FormatInString(str, "MouseButtonReleased: {}", m_BtCode);
+			ProjectCore::FMT::FormatInString(str, "MouseButtonReleased: {}", m_BtCode);
 			return str;
 		}
 

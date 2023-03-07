@@ -1,7 +1,7 @@
 
 
 #include "Texture.h"
-#include "Platform/OpenGL/Detail/Renderer/Renderer.h"
+#include "GraphicsPlatform/OpenGL/Detail/Core/Core.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image/stb_image.h"

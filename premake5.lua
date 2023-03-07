@@ -88,4 +88,4 @@ project "Spitfire"
 	end
 
 	Solution.IncludeProject("Spitfire")
-	Solution.IncludeAndLinkProject("EngineCore")
+	Solution.IncludeAndLinkProject("ProjectCore")

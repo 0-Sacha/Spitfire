@@ -47,8 +47,8 @@ namespace Spitfire
 		ApplicationSpecification& GetApplicationSpecification() { return m_ApplicationSpecification; }
 		const ApplicationSpecification& GetApplicationSpecification() const { return m_ApplicationSpecification; }
 
-		EngineCore::LoggerManager::BasicLogger& GetLogger() { return m_Logger; }
-		static EngineCore::LoggerManager::BasicLogger& Logger() { return GetInstance().GetLogger(); }
+		ProjectCore::LoggerManager::BasicLogger& GetLogger() { return m_Logger; }
+		static ProjectCore::LoggerManager::BasicLogger& Logger() { return GetInstance().GetLogger(); }
 
 
 	private:
@@ -66,7 +66,7 @@ namespace Spitfire
 		float m_FrameTime = 0.0f;
 		float m_LastFrameTime = 0.0f;
 
-		EngineCore::LoggerManager::BasicLogger m_Logger;
+		ProjectCore::LoggerManager::BasicLogger m_Logger;
 
 	private:
 		static Application* s_Instance;
