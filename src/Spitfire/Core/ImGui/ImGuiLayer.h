@@ -8,8 +8,8 @@
 
 #include "imgui.h"
 
-namespace Spitfire {
-
+namespace Spitfire
+{
 	class ImGuiLayer : public Layer
 	{
 	public:
@@ -21,7 +21,13 @@ namespace Spitfire {
 		void OnDetach() override;
 		void OnEvent(Event& event);
 		void OnImGuiRender() override;
-		
+	
+	protected:
+		virtual void OnAttachPlatformImpl() = 0;
+		virtual void OnDetachPlatformImpl() = 0;
+		virtual void BeginFramePlatformImpl() = 0;
+		virtual void EndFramePlatformImpl() = 0;
+
 	public:
 		void BeginFrame();
 		void EndFrame();

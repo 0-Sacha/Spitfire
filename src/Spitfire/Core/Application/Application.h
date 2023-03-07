@@ -4,12 +4,8 @@
 
 #include "Spitfire/Core/Layer/LayerStack.h"
 #include "Spitfire/Core/Event/ApplicationEvent.h"
-
 #include "Spitfire/Core/Utils/TimeStep.h"
-
 #include "Spitfire/Core/ImGui/ImGuiLayer.h"
-
-#define SPITFIRE_BIND_APPEVENT(func) std::bind(&Application::func, this, std::placeholders::_1)
 
 struct GLFWwindow;
 
@@ -30,47 +26,47 @@ namespace Spitfire
 		Application(const std::string& name, uint32_t width = 1280, uint32_t height = 720);
 		virtual ~Application();
 
-	private:
-		void Create(const ApplicationSpecification& specs);
+	protected:
+		void CreateGLFWContext();
+		void CreateGLFWWindow();
+		void BindGLFWEvent();
+
+		void DestroyLayer();
+		void DestroyGLFW();
 
 	public:
-		void Run();
+		virtual void Run();
 
-		void OnEvent(Event& event);
-
+	public:
 		void PushLayer(Ref<Layer> layer);
 		void PushOverlay(Ref<Layer> overlay);
 
-		GLFWwindow* GetWindow() { return m_Window; }
-		static Application& GetInstance() { return *s_Instance; };
-
-		ApplicationSpecification& GetApplicationSpecification() { return m_ApplicationSpecification; }
-		const ApplicationSpecification& GetApplicationSpecification() const { return m_ApplicationSpecification; }
-
-		ProjectCore::LoggerManager::BasicLogger& GetLogger() { return m_Logger; }
-		static ProjectCore::LoggerManager::BasicLogger& Logger() { return GetInstance().GetLogger(); }
-
-
+	public:
+		GLFWwindow* GetWindow() 												{ return m_Window; }
+		const ApplicationSpecification& GetApplicationSpecification() const 	{ return m_ApplicationSpecification; }
+		ProjectCore::LoggerManager::BasicLogger& Logger() 						{ return m_Logger; }
+	
+	public:
+		void OnEvent(Event& event);
 	private:
 		bool OnWindowClose(WindowCloseEvent& event);
+		bool OnWindowResize(WindowResizeEvent& event);
 
-	private:
-		GLFWwindow* m_Window;
+	protected:
 		ApplicationSpecification m_ApplicationSpecification;
+		ProjectCore::LoggerManager::BasicLogger m_Logger;
 
+		GLFWwindow* m_Window;
 		Ref<ImGuiLayer> m_ImGuiLayer;
-		bool m_Running = true;
 		LayerStack m_LayerStack;
-
+		bool m_Running = true;
 		float m_TimeStep = 0.0f;
 		float m_FrameTime = 0.0f;
 		float m_LastFrameTime = 0.0f;
 
-		ProjectCore::LoggerManager::BasicLogger m_Logger;
-
+	public:
+		static Application& GetInstance() 	{ return *s_Instance; };
 	private:
-		static Application* s_Instance;
+		static inline Application* s_Instance;
 	};
-
-	Application* CreateApplication();
 }

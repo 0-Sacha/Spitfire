@@ -1,20 +1,14 @@
 #include "Renderer.h"
+
 #include "Spitfire/Core/Application/Application.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-#ifdef SPITFIRE_USE_OPENGL
-#include "GraphicsPlatform/OpenGL/OpenGL.h"
-#else
-#ifdef SPITFIRE_USE_VULKAN
-#include "GraphicsPlatform/Vulkan/Vulkan.h"
-#endif
-#endif
-
+#include "GL/glew.h"
 #include <GLFW/glfw3.h>
 #include "Dependencies/ImGui/backends/imgui_impl_glfw.h"
-
+#include "Dependencies/ImGui/backends/imgui_impl_opengl3.h"
 
 namespace Spitfire::OpenGL::Detail
 {

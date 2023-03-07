@@ -1,6 +1,7 @@
 #pragma once
 
-namespace Spitfire {
+namespace Spitfire
+{
 
 	struct TimeStep
 	{

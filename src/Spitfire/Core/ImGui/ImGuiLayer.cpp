@@ -2,14 +2,6 @@
 
 #include "Spitfire/Core/Application/Application.h"
 
-#ifdef SPITFIRE_USE_OPENGL
-#include "GraphicsPlatform/OpenGL/OpenGL.h"
-#else
-#ifdef SPITFIRE_USE_VULKAN
-#include "GraphicsPlatform/Vulkan/Vulkan.h"
-#endif
-#endif
-
 #include <GLFW/glfw3.h>
 #include "Dependencies/ImGui/backends/imgui_impl_glfw.h"
 
@@ -44,11 +36,7 @@ namespace Spitfire {
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 
-		Application& app = Application::GetInstance();
-
-		// Setup Platform/Renderer bindings
-		ImGui_ImplGlfw_InitForOpenGL(app.GetWindow(), true);
-		ImGui_ImplOpenGL3_Init("#version 410");
+		OnAttachPlatformImpl();
 
 		ImFontConfig fontConfig;
 		fontConfig.FontDataOwnedByAtlas = false;
@@ -58,15 +46,13 @@ namespace Spitfire {
 
 	void ImGuiLayer::OnDetach()
 	{
-		ImGui_ImplOpenGL3_Shutdown();
-		ImGui_ImplGlfw_Shutdown();
+		OnDetachPlatformImpl();
 		ImGui::DestroyContext();
 	}
 
 	void ImGuiLayer::BeginFrame()
 	{
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
+		BeginFramePlatformImpl();
 		ImGui::NewFrame();
 		
 		BeginFrameDockspace();
@@ -91,7 +77,7 @@ namespace Spitfire {
 
 		// Rendering
 		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		EndFramePlatformImpl();
 
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{

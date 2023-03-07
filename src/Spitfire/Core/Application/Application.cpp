@@ -4,47 +4,34 @@
 
 #include <GLFW/glfw3.h>
 
-namespace Spitfire
-{
-	void InitGraphicsContext();
-}
-
 namespace Spitfire {
 
-	Application* Application::s_Instance = nullptr;
-
 	Application::Application(const ApplicationSpecification& specs)
-		: m_Logger(specs.Name, ProjectCore::LoggerManager::LogSeverity::Trace)
-	{
-		Create(specs);
-	}
-
+		: m_ApplicationSpecification{ specs }
+		, m_Logger(specs.Name, ProjectCore::LoggerManager::LogSeverity::Trace)
+		, m_Window(nullptr)
+	{}
 
 	Application::Application(const std::string& name, uint32_t width, uint32_t height)
-		: m_Logger(name, ProjectCore::LoggerManager::LogSeverity::Trace)
-	{
-		ApplicationSpecification specs;
-		specs.Name = name;
-		specs.Width = width;
-		specs.Height = height;
-		Create(specs);
-	}
+		: m_ApplicationSpecification{ name, width, height }
+		, m_Logger(name, ProjectCore::LoggerManager::LogSeverity::Trace)
+		, m_Window(nullptr)
+	{}
 
 	Application::~Application()
 	{
-		glfwTerminate();
+		DestroyLayer();
+		DestroyGLFW();
+		s_Instance = nullptr;
 	}
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
-		Application::Logger().Fatal("GLFW Error {}: {}", error, description);
+		Application::GetInstance().Logger().Fatal("GLFW Error {}: {}", error, description);
 	}
 
 	static void GLFWWindowSizeCallback(GLFWwindow* window, int width, int height) {
 		Application& app = *(Application*)glfwGetWindowUserPointer(window);
-		app.GetApplicationSpecification().Height = height;
-		app.GetApplicationSpecification().Width = width;
-
 		WindowResizeEvent event(width, height);
 		app.OnEvent(event);
 	}
@@ -123,37 +110,29 @@ namespace Spitfire {
 		app.OnEvent(event);
 	}
 
-	void Application::Create(const ApplicationSpecification& specs)
+	void Application::CreateGLFWContext()
 	{
-		if(!s_Instance)
-		{
-			//Init Core
-		}
-		else
-		{
+		if (s_Instance)
 			SPITFIRE_ASSERT(false, "Application already exists!");
-		}
 		s_Instance = this;
 
 		glfwSetErrorCallback(GLFWErrorCallback);
 		if (!glfwInit())
 		{
-			Logger().Fatal("Could not initialize GLFW!");
+			m_Logger.Fatal("Could not initialize GLFW!");
 			return;
 		}
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+	}
 
-		m_Window = glfwCreateWindow(specs.Width, specs.Height, specs.Name.c_str(), NULL, NULL);
-		glfwMakeContextCurrent(m_Window);
-		
-		SPITFIRE_INFO("OpenGl Info : RIP");
-		// SPITFIRE_INFO(" - Vendor : {}", glGetString(GL_VENDOR));
-		// SPITFIRE_INFO(" - Renderer : {}", glGetString(GL_RENDERER));
-		// SPITFIRE_INFO(" - Version  : {}", glGetString(GL_VERSION));
-		
+	void Application::CreateGLFWWindow()
+	{
+		m_Window = glfwCreateWindow(m_ApplicationSpecification.Width, m_ApplicationSpecification.Height, m_ApplicationSpecification.Name.c_str(), NULL, NULL);
+	}
+
+	void Application::BindGLFWEvent()
+	{
 		glfwSwapInterval(1); // VSYNC
-		
+
 		glfwSetWindowUserPointer(m_Window, this);
 
 		glfwSetWindowSizeCallback(m_Window, GLFWWindowSizeCallback);
@@ -164,20 +143,32 @@ namespace Spitfire {
 		glfwSetScrollCallback(m_Window, GLFWScrollCallback);
 		glfwSetCursorPosCallback(m_Window, GLFWCursorPosCallback);
 
-		m_ImGuiLayer = std::make_shared<ImGuiLayer>();
-		PushOverlay(m_ImGuiLayer);
 	}
 
+	void Application::DestroyLayer()
+	{
+		m_LayerStack.ForEach([](Ref<Layer>& layer) {
+				layer->OnDetach();
+			});
+		m_LayerStack.Clear();
+	}
+
+	void Application::DestroyGLFW()
+	{
+		glfwDestroyWindow(m_Window);
+		glfwTerminate();
+	}
 
 	void Application::Run()
 	{
-		while(m_Running) {
+		while (m_Running)
+		{
 			float time = (float)glfwGetTime();
 			TimeStep timeStep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			m_LayerStack.ForEach([timeStep](Ref<Layer>& layer) {
-					layer->OnUpdate(timeStep);
+				layer->OnUpdate(timeStep);
 				});
 
 			m_ImGuiLayer->BeginFrame();
@@ -206,11 +197,11 @@ namespace Spitfire {
 		SPITFIRE_EVENT_TRACE(event);
 
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<WindowCloseEvent>(SPITFIRE_BIND_APPEVENT(OnWindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(SPITFIRE_BIND_EVENT(OnWindowClose));
 
 		m_LayerStack.ForEachReverseStopable([&event](Ref<Layer>& layer) {
-				layer->OnEvent(event);
-				return event.Handled;
+			layer->OnEvent(event);
+		return event.Handled;
 			});
 	}
 
@@ -219,4 +210,12 @@ namespace Spitfire {
 		m_Running = false;
 		return true;
 	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& event)
+	{
+		m_ApplicationSpecification.Height = event.GetHeight();
+		m_ApplicationSpecification.Width = event.GetWidth();
+		return true;
+	}
+
 }
