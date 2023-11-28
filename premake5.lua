@@ -25,7 +25,7 @@ end
 
 Solution.ProjectsInfo.PlatformDefineName["Spitfire"] = "SPITFIRE"
 
-Solution.ProjectsInfo.Includes["Spitfire"] = {
+Solution.ProjectsInfo.IncludeDirs["Spitfire"] = {
 	"%{Solution.Projects.Spitfire}/",
 	"%{Solution.Projects.Spitfire}/src/",
 	"%{Solution.Projects.Spitfire}/Dependencies",
