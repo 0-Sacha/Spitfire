@@ -1,40 +1,44 @@
-Solution.Projects["ImGui"] 		= "Dependencies/ImGui"
 
+Solution.Projects["Spitfire"].PlatformDefineName = "SPITFIRE"
+Solution.Projects["Spitfire"].Type = "StaticLib"
+Solution.Projects["Spitfire"].IncludeDirs = {
+	"%{Solution.Projects.Spitfire.Path}/",
+	"%{Solution.Projects.Spitfire.Path}/src/",
+	"%{Solution.Projects.Spitfire.Path}/Dependencies",
+	
+	"%{Solution.Projects.Spitfire.Path}/Dependencies/ImGui",
+}
+Solution.Projects["Spitfire"].ProjectDependencies = {
+	"ProjectCore",
+	"ImGui"
+}
+
+Solution.AddProject("ImGui", "Dependencies/ImGui")
 group "Dependencies"
-	include (Solution.Projects["ImGui"])
+	include (Solution.Projects["ImGui"].Path)
 group ""
 
 if (SpitfireUseVulkan) then
-	ProjectEnvVar["VULKAN_SDK"] = {
+	VULKAN_SDK_ENVVAR = {
 		"VULKAN_SDK",
 		"VK_SDK_PATH"
-	 }
+	}
 	 
-	VULKAN_SDK = Solution.GetEnvironementVariable("VULKAN_SDK");
+	VULKAN_SDK = Solution.GetEnvironementVariable("VULKAN_SDK", VULKAN_SDK_ENVVAR);
 	 
-	Solution.ProjectsInfo.Defines["Spitfire"] = {
+	Solution.Projects["Spitfire"].Defines = {
 		"%{VULKAN_SDK}/Include",
 		"SPITFIRE_USE_VULKAN"
 	}
 else
-	Solution.ProjectsInfo.Defines["Spitfire"] = {
+	Solution.Projects["Spitfire"].Defines = {
 		"GLEW_STATIC",
 		"SPITFIRE_USE_OPENGL"
 	}
 end
 
-Solution.ProjectsInfo.PlatformDefineName["Spitfire"] = "SPITFIRE"
-
-Solution.ProjectsInfo.IncludeDirs["Spitfire"] = {
-	"%{Solution.Projects.Spitfire}/",
-	"%{Solution.Projects.Spitfire}/src/",
-	"%{Solution.Projects.Spitfire}/Dependencies",
-	
-	"%{Solution.Projects.Spitfire}/Dependencies/ImGui",
-}
-
 project "Spitfire"
-	kind "StaticLib"
+	kind 		(Solution.Projects["Spitfire"].Type)
 	language "C++"
 	cppdialect "C++20"
 
@@ -42,8 +46,8 @@ project "Spitfire"
     objdir 		(Solution.Path.ProjectObjectDirectory)
 
 	includedirs {
-		"%{Solution.Projects.Spitfire}/Dependencies/GLEW/include/",
-		"%{Solution.Projects.Spitfire}/Dependencies/GLFW/%{cfg.platform}/include/",
+		"%{Solution.Projects.Spitfire.Path}/Dependencies/GLEW/include/",
+		"%{Solution.Projects.Spitfire.Path}/Dependencies/GLFW/%{cfg.platform}/include/",
 	}
 
 	files {
@@ -54,8 +58,6 @@ project "Spitfire"
 	}
 
 	links {
-		"ImGui",
-
 		"Dependencies/GLFW/%{cfg.platform}/lib-vc2019/glfw3_mt",
 		"User32.lib",
 		"Gdi32.lib",
@@ -86,5 +88,4 @@ project "Spitfire"
 		}
 	end
 
-	Solution.IncludeProject("Spitfire")
-	Solution.IncludeAndLinkProject("ProjectCore")
+	Solution.Project("Spitfire")
