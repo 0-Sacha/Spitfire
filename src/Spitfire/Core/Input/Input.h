@@ -11,9 +11,9 @@ namespace Spitfire
 	class Input
 	{
 	public:
-		inline static bool IsKeyPressed(int keyCode);
-		inline static bool IsMouseBtPressed(int btCode);
-		inline static std::pair<float, float> GetMousePosition();
+		static bool IsKeyPressed(int keyCode);
+		static bool IsMouseBtPressed(int btCode);
+		static std::pair<float, float> GetMousePosition();
 
 	public:
 		inline static bool IsKeyPressed(KeyboardKey key)	{ return IsKeyPressed((int)key); }

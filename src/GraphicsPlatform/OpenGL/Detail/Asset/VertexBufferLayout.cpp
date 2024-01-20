@@ -21,6 +21,7 @@ namespace Spitfire::OpenGL::Detail
 			case ShaderData::Type::Float4:	return 4 * 4;
 			case ShaderData::Type::Mat3:	return 4 * 3 * 3;
 			case ShaderData::Type::Mat4:	return 4 * 4 * 4;
+			case ShaderData::Type::None: 	break;
 		}
 
 		SPITFIRE_ASSERT(false, "Unkown ShaderDataType!");
@@ -42,6 +43,7 @@ namespace Spitfire::OpenGL::Detail
 			case ShaderData::Type::Float4:	return 4;
 			case ShaderData::Type::Mat3:	return 3 * 3;
 			case ShaderData::Type::Mat4:	return 4 * 4;
+			case ShaderData::Type::None: 	break;
 		}
 		SPITFIRE_ASSERT(false, "Unkown ShaderDataType!");
 		return 0;

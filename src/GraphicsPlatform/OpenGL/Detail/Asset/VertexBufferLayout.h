@@ -67,7 +67,7 @@ namespace Spitfire::OpenGL::Detail {
 
 		template <typename... Args>
 		BufferElements& Emplace(Args&&... args) { return m_Elements.emplace_back(std::forward<Args>(args)...); }
-		BufferElements& Push(const BufferElements& element) { m_Elements.push_back(element); }
+		void Push(const BufferElements& element) { m_Elements.push_back(element); }
 
 	public:
 		inline std::vector<BufferElements>::iterator begin() { return m_Elements.begin(); }

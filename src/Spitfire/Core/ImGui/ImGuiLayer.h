@@ -19,7 +19,7 @@ namespace Spitfire
 	public:
 		void OnAttach() override;
 		void OnDetach() override;
-		void OnEvent(Event& event);
+		void OnEvent(Event& event) override;
 		void OnImGuiRender() override;
 	
 	protected:

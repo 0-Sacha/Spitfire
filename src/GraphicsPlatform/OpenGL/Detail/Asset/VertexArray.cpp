@@ -19,6 +19,7 @@ namespace Spitfire::OpenGL::Detail
 		case ShaderData::Type::Float4:		return GL_FLOAT;
 		case ShaderData::Type::Mat3:		return GL_FLOAT;
 		case ShaderData::Type::Mat4:		return GL_FLOAT;
+		case ShaderData::Type::None:		break;
 		}
 
 		SPITFIRE_ASSERT(false, "Unkown ShaderDataType!");
