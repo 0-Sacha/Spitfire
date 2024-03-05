@@ -61,7 +61,7 @@ namespace Spitfire::OpenGL::Detail
 				ShaderData::GetAPIType(element.ShaderDataType),
 				element.Normalized ? GL_TRUE : GL_FALSE,
 				layout.GetStride(),
-				(const void*)element.Offset);
+				reinterpret_cast<const void*>(element.Offset));
 			index++;
 		}
 		m_VertexBuffers.push_back(vertexBuffer);
